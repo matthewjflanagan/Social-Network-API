@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const reactionSchema = require('reactionSchema');
+const reactionSchema = require('./Reaction');
 
 // Construct a new instance of the schema class
 const thoughtSchema = new mongoose.Schema({
@@ -19,7 +19,7 @@ const thoughtSchema = new mongoose.Schema({
     },
     username: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Thought',
       }],
       reactions: [
