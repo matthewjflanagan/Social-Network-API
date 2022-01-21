@@ -16,21 +16,18 @@ router.route('/')
 router.route('/:userId')
 .post(createThought);
 
-// /api/thought/:thoughtId
-router.route('/')
-.route('/:thoughtId')
+// /api/thoughts/:thoughtId
+router.route('/:thoughtId')
 .get(getSingleThought)
 .put(updateThought)
 .delete(deleteThought);
 
 // Add a reaction to thought
-router
-.route("/:thoughtId/reactions/")
+router.route("/:thoughtId/reactions/")
 .post(addReaction);
 
 // Delete a reaction from thought
-router
-.route("/:thoughtId/reactions/:reactionId")
+router.route("/:thoughtId/reactions/:reactionId")
 .delete(deleteReaction);
 
 
