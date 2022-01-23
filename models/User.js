@@ -1,10 +1,15 @@
 // Require schema and model from mongoose
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 // Construct a new instance of the schema class
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   // Configure individual properties using Schema Types
-  username: { type: String, unique: true, required: true, trim: true },
+  username: { 
+    type: String, 
+    unique: true, 
+    required: true, 
+    trim: true 
+  },
   email: { 
     type: String, 
     required: true, 
@@ -13,18 +18,35 @@ const userSchema = new mongoose.Schema({
   },
   thoughts: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Thought',
-    }],
-    friends: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Friend',
-      }],
-});
+    }
+  ],
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    }
+  ],
+},
+{
+  toJSON: {
+    virtuals: true,
+    getters: true,
+  },
+  id: false,
+
+}
+);
 
 // Using mongoose.model() to compile a model based on the schema 'bookSchema'
-const User = mongoose.model('User', userSchema);
+const User = model('User', userSchema);
+userSchema
+  .virtual('friendCount')
+  // Getter
+  .get(function () {
+    return this.friends.length;
+  })
 
 module.exports = User;
 

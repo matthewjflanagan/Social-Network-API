@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 const reactionSchema = require('./Reaction');
+const moment = require('moment');
 
 // Construct a new instance of the schema class
-const thoughtSchema = new mongoose.Schema({
+const thoughtSchema = new Schema({
     // Configure individual properties using Schema Types
     thoughtText: { 
       type: String, 
@@ -17,17 +18,31 @@ const thoughtSchema = new mongoose.Schema({
         moment(date).format('MMMM Do YYYY')
       }
     },
-    username: [
+    username:
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Thought',
-      }],
+        type: String,
+        required: true,
+      },
       reactions: [
         reactionSchema
       ],
-  });
+    },
+    {
+      toJSON: {
+        virtuals: true,
+        getters: true
+      },
+      id: false,
+    }
+  );
 
 // Using mongoose.model() to compile a model based on the schema 'bookSchema'
-const Thought = mongoose.model('Thought', thoughtSchema);
+const Thought = model('Thought', thoughtSchema);
+thoughtSchema
+  .virtual('reactionCount')
+  // Getter
+  .get(function () {
+    return this.reactions.length;
+  })
 
 module.exports = Thought;

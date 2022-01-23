@@ -1,11 +1,12 @@
-const mongoose = require('mongoose');
+const { Schema, Types } = require('mongoose');
+const moment = require('moment');
 
 // Construct a new instance of the schema class
-const reactionSchema = new mongoose.Schema({
+const reactionSchema = new Schema({
     // Configure individual properties using Schema Types
     reactionId:{
-        type: mongoose.Schema.Types.ObjectId,
-        default: () => new mongoose.Types.ObjectId(),
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId(),
     },
     reactionBody:{
         type: String,
@@ -23,6 +24,13 @@ const reactionSchema = new mongoose.Schema({
           moment(date).format('MMMM Do YYYY')
         }
     }
-})
+},
+{
+    toJSON: {
+        getters: true,
+    },
+    id: false,
+    }
+);
 
 module.exports = reactionSchema;
