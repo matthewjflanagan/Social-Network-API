@@ -80,11 +80,11 @@ module.exports = {
     },
     // remove a friend from a user's friend list
     deleteFriend(req, res) {
-      User.findOneAndDelete(
-        {_id: req.params.userId},
-        {$pull: {friends: req.params.friendId}},
+      User.findOneAndRemove(
+        req.params.userId,
+        {$pull: { friends: req.params.friendId } },
         { runValidators: true, new: true }
-        )
+      )
         .then(async (deleteFriend) => {
           return res.json(deleteFriend)
         })
