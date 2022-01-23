@@ -18,14 +18,14 @@ connection.once('open', async () => {
   try {
     const res = await User.collection.insertMany(users);
     console.log(res.ops);
-  } catch (error) {
+  } catch (err) {
     return console.log(err);
   }
   // Add thought to the collection and await the results
   try {
     const res = await Thought.collection.insertMany(thoughts);
     console.log(res.ops);
-  } catch (error) {
+  } catch (err) {
     return console.log(err);
   }
   // Log out the seed data to indicate what should appear in the database
