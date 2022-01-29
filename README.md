@@ -18,7 +18,7 @@ A database back end for a social media platform! In the walkthrough below I will
 ## Usage
 https://watch.screencastify.com/v/CZSnCQYRnps93R4h5sSE
 
-[Screenshot of Webpage](Assets/heroku.PNG)
+![Screenshot of Webpage](Assets/heroku.PNG)
 
 ## Credits
 - Collaborated with Olsen Ogouchi 
